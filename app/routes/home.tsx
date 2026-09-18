@@ -1,13 +1,17 @@
+import { Timer } from "~/widgets/timer/ui/Timer";
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
 
 export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
+    return [
+        { title: "Pomo" },
+        { name: "description", content: "Helping you to focus" },
+    ];
 }
 
 export default function Home() {
-  return <Welcome />;
+    return (
+        <div>
+            <Timer />
+        </div>
+    );
 }
