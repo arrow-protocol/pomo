@@ -15,6 +15,7 @@ export function Header() {
                             to="/"
                             variant="subtle"
                             color="gray"
+                            radius="lg"
                         >
                             Focus
                         </Button>
@@ -23,6 +24,7 @@ export function Header() {
                             to="/plan"
                             variant="subtle"
                             color="gray"
+                            radius="lg"
                         >
                             Plan
                         </Button>
@@ -31,6 +33,7 @@ export function Header() {
                             to="/progress"
                             variant="subtle"
                             color="gray"
+                            radius="lg"
                         >
                             Progress
                         </Button>
@@ -39,6 +42,7 @@ export function Header() {
                         variant="subtle"
                         color="gray"
                         size="lg"
+                        radius="lg"
                         aria-label="Settings"
                     >
                         <SlidersHorizontalIcon
