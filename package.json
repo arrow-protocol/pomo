@@ -8,7 +8,10 @@
         "start": "react-router-serve ./build/server/index.js",
         "typecheck": "react-router typegen && tsc",
         "lint": "eslint .",
-        "lint:fix": "eslint . --fix"
+        "lint:fix": "eslint . --fix",
+        "format": "prettier . --write",
+        "format:check": "prettier . --check",
+        "prepare": "husky"
     },
     "dependencies": {
         "@mantine/core": "^9.6.1",
@@ -31,12 +34,22 @@
         "eslint": "^10.11.0",
         "eslint-plugin-react-hooks": "^7.1.1",
         "eslint-plugin-simple-import-sort": "^14.0.0",
+        "husky": "^9.1.7",
+        "lint-staged": "^17.5.1",
         "postcss": "^8.5.28",
         "postcss-preset-mantine": "^1.18.0",
         "postcss-simple-vars": "^7.0.1",
+        "prettier": "^3.9.8",
         "tailwindcss": "^4.3.3",
         "typescript": "^5.9.3",
         "typescript-eslint": "^8.70.0",
         "vite": "^8.0.3"
+    },
+    "lint-staged": {
+        "*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}": [
+            "eslint --fix",
+            "prettier --write"
+        ],
+        "*.{css,json,md,yml,yaml}": "prettier --write"
     }
 }
