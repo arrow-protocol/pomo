@@ -1,7 +1,6 @@
 import { Form } from "react-router";
 
 import { Button, Group, List, Paper, Stack, Text, Title } from "@mantine/core";
-
 import {
     NumberCircleOneIcon,
     NumberCircleThreeIcon,

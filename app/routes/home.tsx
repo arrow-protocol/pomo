@@ -1,15 +1,14 @@
-import type { Route } from "./+types/home";
-
 import { redirect } from "react-router";
 
 import { Container, Stack } from "@mantine/core";
 
-import { Timer } from "~/widgets/timer";
-import { Explanation } from "~/widgets/explanation";
-
 import { userPrefs } from "~/cookies.server";
+import { Explanation } from "~/widgets/explanation";
+import { Timer } from "~/widgets/timer";
 
-export function meta({}: Route.MetaArgs) {
+import type { Route } from "./+types/home";
+
+export function meta() {
     return [
         { title: "Pomo" },
         { name: "description", content: "Helping you to focus" },

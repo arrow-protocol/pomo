@@ -1,7 +1,7 @@
-import { ActionIcon, Button, Container, Flex } from "@mantine/core";
-
-import { SlidersHorizontalIcon } from "@phosphor-icons/react";
 import { Link } from "react-router";
+
+import { ActionIcon, Button, Container, Flex } from "@mantine/core";
+import { SlidersHorizontalIcon } from "@phosphor-icons/react";
 
 export function Header() {
     return (
