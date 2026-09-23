@@ -57,6 +57,7 @@ export function Timer() {
                     />
 
                     <TextInput
+                        variant="filled"
                         size="lg"
                         radius="lg"
                         placeholder="Name this block - optional"
