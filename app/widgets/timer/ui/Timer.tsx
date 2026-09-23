@@ -76,15 +76,15 @@ export function Timer() {
 
                     <Center>
                         <Group>
-                            <Text size="md" c="dimmed">
-                                <Kbd size="md" c="dimmed">
+                            <Text size="md" c="gray">
+                                <Kbd size="md" c="gray">
                                     Space
                                 </Kbd>{" "}
                                 - start
                             </Text>
-                            <Text c="dimmed">•</Text>
-                            <Text size="md" c="dimmed">
-                                <Kbd size="md" c="dimmed">
+                            <Text c="gray">•</Text>
+                            <Text size="md" c="gray">
+                                <Kbd size="md" c="gray">
                                     S
                                 </Kbd>{" "}
                                 - settings
