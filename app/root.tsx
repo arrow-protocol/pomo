@@ -23,11 +23,14 @@ export const links: Route.LinksFunction = () => [
     },
     {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap",
     },
 ];
 
-const theme = createTheme({ fontFamily: "Figtree, sans-serif" });
+const theme = createTheme({
+    fontFamily: "Figtree, sans-serif",
+    headings: { fontFamily: "'IBM Plex Mono', monospace" },
+});
 
 export function Layout({ children }: { children: React.ReactNode }) {
     return (
