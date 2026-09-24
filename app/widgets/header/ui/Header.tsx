@@ -1,55 +1,25 @@
-import { Link } from "react-router";
-
-import { ActionIcon, Button, Container, Flex } from "@mantine/core";
-import { SlidersHorizontalIcon } from "@phosphor-icons/react";
+import { ActionIcon, Box, Container, Flex, Group, Text } from "@mantine/core";
+import { GearIcon } from "@phosphor-icons/react";
 
 export function Header() {
     return (
         <Container>
             <Flex h={64} justify="space-between" align="center">
-                <span>LOGO</span>
-                <Flex gap={24} align="center">
-                    <Flex gap={8} align="center">
-                        <Button
-                            component={Link}
-                            to="/"
-                            variant="subtle"
-                            color="gray"
-                            radius="lg"
-                        >
-                            Focus
-                        </Button>
-                        <Button
-                            component={Link}
-                            to="/plan"
-                            variant="subtle"
-                            color="gray"
-                            radius="lg"
-                        >
-                            Plan
-                        </Button>
-                        <Button
-                            component={Link}
-                            to="/progress"
-                            variant="subtle"
-                            color="gray"
-                            radius="lg"
-                        >
-                            Progress
-                        </Button>
-                    </Flex>
-                    <ActionIcon
-                        variant="subtle"
-                        color="gray"
-                        size="lg"
-                        radius="lg"
-                        aria-label="Settings"
-                    >
-                        <SlidersHorizontalIcon
-                            style={{ width: "70%", height: "70%" }}
-                        />
-                    </ActionIcon>
-                </Flex>
+                <Group>
+                    <Box bg="red.3" w={12} h={12} bdrs={100} />
+                    <Text size="lg" fw={500}>
+                        Pomodoro
+                    </Text>
+                </Group>
+                <ActionIcon
+                    variant="subtle"
+                    color="gray"
+                    size="lg"
+                    radius="lg"
+                    aria-label="Settings"
+                >
+                    <GearIcon width={20} height={20} />
+                </ActionIcon>
             </Flex>
         </Container>
     );
