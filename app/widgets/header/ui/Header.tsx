@@ -6,7 +6,7 @@ export function Header() {
         <Container>
             <Flex h={64} justify="space-between" align="center">
                 <Group>
-                    <Box bg="red.3" w={12} h={12} bdrs={100} />
+                    <Box bg="red.9" w={12} h={12} bdrs={100} />
                     <Text size="lg" fw={500}>
                         Pomodoro
                     </Text>
