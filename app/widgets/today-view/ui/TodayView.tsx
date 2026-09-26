@@ -1,12 +1,20 @@
 import { Button, Group, Kbd, Text, Title } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { format } from "date-fns";
 
 import { TaskEntry } from "~/features/add-task";
+import { PlanSessionModal } from "~/features/plan-session";
 
 import { CompletedTasksList } from "./CompletedTasksList";
 import { TaskList } from "./TaskList";
 
 export function TodayView() {
+    const [opened, { open, close }] = useDisclosure(false);
+
+    const handlePlanSessionModal = () => {
+        open();
+    };
+
     const currentDate = format(new Date(), "EEEE, dd MMMM").toLocaleUpperCase(
         "en-GB",
     );
@@ -29,6 +37,7 @@ export function TodayView() {
                     3 sessions · 1h 15m focused today
                 </Text>
                 <Button
+                    onClick={handlePlanSessionModal}
                     size="md"
                     rightSection={
                         <Kbd
@@ -44,6 +53,8 @@ export function TodayView() {
                     Start session
                 </Button>
             </Group>
+
+            <PlanSessionModal opened={opened} onClose={close} />
         </div>
     );
 }
