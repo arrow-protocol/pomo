@@ -9,7 +9,6 @@ export function CompletedTasksList() {
             chevronPosition="left"
             chevronSize={12}
             order={3}
-            mt="lg"
         >
             <Accordion.Item value="completed">
                 <Accordion.Control>

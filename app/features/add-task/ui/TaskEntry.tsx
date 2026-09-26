@@ -3,7 +3,7 @@ import { MinusIcon, PlusIcon } from "@phosphor-icons/react";
 
 export function TaskEntry() {
     return (
-        <Group my="lg" gap="sm">
+        <Group gap="sm">
             <TextInput
                 flex={1}
                 variant="filled"
