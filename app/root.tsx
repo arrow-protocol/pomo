@@ -10,7 +10,7 @@ import {
     ScrollRestoration,
 } from "react-router";
 
-import { createTheme, MantineProvider } from "@mantine/core";
+import { ActionIcon, createTheme, MantineProvider } from "@mantine/core";
 
 import type { Route } from "./+types/root";
 
@@ -33,6 +33,13 @@ const theme = createTheme({
     fontFamily: "Figtree, sans-serif",
     fontFamilyMonospace: "'IBM Plex Mono', monospace",
     headings: { fontFamily: "Figtree, sans-serif", fontWeight: "600" },
+    components: {
+        ActionIcon: ActionIcon.extend({
+            defaultProps: {
+                color: "gray",
+            },
+        }),
+    },
 });
 
 export function Layout({ children }: { children: React.ReactNode }) {
