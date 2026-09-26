@@ -9,7 +9,15 @@ import {
 } from "@mantine/core";
 import { GearIcon } from "@phosphor-icons/react";
 
-export function Header() {
+type HeaderProps = {
+    onOpenSettings: () => void;
+};
+
+export function Header({ onOpenSettings }: HeaderProps) {
+    const handleSettingsClick = () => {
+        onOpenSettings();
+    };
+
     return (
         <Container fluid px={{ base: "md", sm: "xl" }}>
             <Flex h={60} justify="space-between" align="center">
@@ -29,6 +37,7 @@ export function Header() {
                         size="lg"
                         radius="lg"
                         aria-label="Settings"
+                        onClick={handleSettingsClick}
                     >
                         <GearIcon width={20} height={20} />
                     </ActionIcon>
