@@ -29,8 +29,13 @@ export function SettingsDrawer({ opened, onClose }: SettingsDrawerProps) {
             position="left"
             padding="lg"
             styles={{
+                content: {
+                    display: "flex",
+                    flexDirection: "column",
+                },
                 body: {
                     flex: 1,
+                    display: "grid",
                 },
             }}
         >
