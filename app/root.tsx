@@ -28,8 +28,11 @@ export const links: Route.LinksFunction = () => [
 ];
 
 const theme = createTheme({
+    primaryColor: "red",
+    primaryShade: 8,
     fontFamily: "Figtree, sans-serif",
-    headings: { fontFamily: "'IBM Plex Mono', monospace" },
+    fontFamilyMonospace: "'IBM Plex Mono', monospace",
+    headings: { fontFamily: "Figtree, sans-serif", fontWeight: "600" },
 });
 
 export function Layout({ children }: { children: React.ReactNode }) {
