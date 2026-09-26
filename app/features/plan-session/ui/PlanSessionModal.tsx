@@ -8,6 +8,7 @@ import {
     Stack,
     Text,
     Textarea,
+    Title,
 } from "@mantine/core";
 import type { ReactNode } from "react";
 
@@ -26,7 +27,7 @@ export function PlanSessionModal({ opened, onClose }: PlanSessionModalProps) {
         <Modal
             opened={opened}
             onClose={onClose}
-            title="Plan this session"
+            title={<Title order={4}>Plan this session</Title>}
             centered
             size="md"
             padding="lg"
