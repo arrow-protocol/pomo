@@ -4,20 +4,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ActionIcon, Group, Kbd, Text, TextInput } from "@mantine/core";
 import { ArrowRightIcon, MinusIcon, PlusIcon } from "@phosphor-icons/react";
 import type { MouseEventHandler } from "react";
-import * as z from "zod";
 
-import { type CreateTaskInput, useTasksStore } from "~/entities/task";
+import {
+    type CreateTaskInput,
+    taskInputSchema,
+    useTasksStore,
+} from "~/entities/task";
 
 const shortcut = (
     <Text size="xs">
         <Kbd size="xs">N</Kbd>
     </Text>
 );
-
-const schema = z.object({
-    title: z.string().trim().min(1, "Enter a task").max(200),
-    estimatedSessions: z.number().int().min(1).max(24).nullable(),
-});
 
 export function TaskEntry() {
     const {
@@ -32,7 +30,7 @@ export function TaskEntry() {
             title: "",
             estimatedSessions: null,
         },
-        resolver: zodResolver(schema),
+        resolver: zodResolver(taskInputSchema),
     });
 
     const addTask = useTasksStore((state) => state.addTask);

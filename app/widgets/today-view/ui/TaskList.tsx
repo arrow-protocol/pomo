@@ -3,7 +3,9 @@ import { Fragment } from "react";
 import { Divider, Stack, Text } from "@mantine/core";
 import { useShallow } from "zustand/shallow";
 
-import { TaskItem, useTasksStore } from "~/entities/task";
+import { useTasksStore } from "~/entities/task";
+
+import { EditableTaskItem } from "./EditableTaskItem";
 
 export function TaskList() {
     const tasks = useTasksStore(
@@ -31,7 +33,7 @@ export function TaskList() {
                 return (
                     <Fragment key={task.id}>
                         {i !== 0 && <Divider />}
-                        <TaskItem {...task} />
+                        <EditableTaskItem task={task} />
                     </Fragment>
                 );
             })}

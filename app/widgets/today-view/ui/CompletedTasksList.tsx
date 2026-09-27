@@ -1,8 +1,9 @@
 import { Accordion, Stack, Text } from "@mantine/core";
 import { useShallow } from "zustand/shallow";
 
-import { TaskItem } from "~/entities/task";
-import { useTasksStore } from "~/entities/task/model/useTasksStore";
+import { useTasksStore } from "~/entities/task";
+
+import { EditableTaskItem } from "./EditableTaskItem";
 
 export function CompletedTasksList() {
     const tasks = useTasksStore(
@@ -32,7 +33,7 @@ export function CompletedTasksList() {
                     <Stack gap={0}>
                         {tasks.map((task) => {
                             return (
-                                <TaskItem key={task.id} {...task} completed />
+                                <EditableTaskItem key={task.id} task={task} />
                             );
                         })}
                     </Stack>

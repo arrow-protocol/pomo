@@ -11,13 +11,18 @@ import type { Task } from "../model/types";
 import { useTasksStore } from "../model/useTasksStore";
 import { TaskProgress } from "./TaskProgress";
 
+type TaskItemProps = Task & {
+    onEdit: () => void;
+};
+
 export function TaskItem({
     id,
     title,
     completedAt,
     completedSessions,
     estimatedSessions,
-}: Task) {
+    onEdit,
+}: TaskItemProps) {
     const updateTask = useTasksStore((state) => state.updateTask);
     const removeTask = useTasksStore((state) => state.removeTask);
 
@@ -31,6 +36,10 @@ export function TaskItem({
         }
     };
 
+    const handleEdit = () => {
+        onEdit();
+    };
+
     const handleDelete = () => {
         removeTask(id);
     };
@@ -41,7 +50,7 @@ export function TaskItem({
                 {!completed && (
                     <ActionIcon
                         variant="transparent"
-                        size="lg"
+                        size="input-sm"
                         aria-label={`Reorder ${title}`}
                     >
                         <DotsSixVerticalIcon size={16} />
@@ -72,6 +81,7 @@ export function TaskItem({
                         <Menu.Target>
                             <ActionIcon
                                 variant="transparent"
+                                size="input-sm"
                                 aria-label="Task actions"
                             >
                                 <DotsThreeIcon size={16} />
@@ -81,6 +91,7 @@ export function TaskItem({
                         <Menu.Dropdown>
                             <Menu.Item
                                 leftSection={<PencilSimpleIcon size={16} />}
+                                onClick={handleEdit}
                             >
                                 Edit
                             </Menu.Item>
