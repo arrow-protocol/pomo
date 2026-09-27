@@ -27,9 +27,13 @@ export function TaskList() {
         );
     }
 
+    const sortedTasks = tasks
+        .slice()
+        .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+
     return (
         <Stack gap={0} bg="white" bdrs="md">
-            {tasks.map((task, i) => {
+            {sortedTasks.map((task, i) => {
                 return (
                     <Fragment key={task.id}>
                         {i !== 0 && <Divider />}
