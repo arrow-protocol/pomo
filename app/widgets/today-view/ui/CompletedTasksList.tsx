@@ -1,8 +1,20 @@
 import { Accordion, Stack, Text } from "@mantine/core";
+import { useShallow } from "zustand/shallow";
 
 import { TaskItem } from "~/entities/task";
+import { useTasksStore } from "~/entities/task/model/useTasksStore";
 
 export function CompletedTasksList() {
+    const tasks = useTasksStore(
+        useShallow((state) =>
+            state.tasks.filter((t) => t.completedAt !== null),
+        ),
+    );
+
+    if (tasks.length === 0) {
+        return null;
+    }
+
     return (
         <Accordion
             variant="unstyled"
@@ -13,19 +25,16 @@ export function CompletedTasksList() {
             <Accordion.Item value="completed">
                 <Accordion.Control>
                     <Text span size="sm" c="dimmed">
-                        Done (2)
+                        Done ({tasks.length})
                     </Text>
                 </Accordion.Control>
                 <Accordion.Panel>
                     <Stack gap={0}>
-                        <TaskItem
-                            title="Reducer tests for session state machine"
-                            completed
-                        />
-                        <TaskItem
-                            title="Reducer tests for session state machine"
-                            completed
-                        />
+                        {tasks.map((task) => {
+                            return (
+                                <TaskItem key={task.id} {...task} completed />
+                            );
+                        })}
                     </Stack>
                 </Accordion.Panel>
             </Accordion.Item>
