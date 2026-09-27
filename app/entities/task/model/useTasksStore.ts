@@ -1,30 +1,13 @@
 import { create } from "zustand";
 
-type Task = {
-    id: string;
-    title: string;
-
-    createdAt: string;
-    updatedAt: string | null;
-    completedAt: string | null;
-
-    completedSessions: number;
-    estimatedSessions: number | null;
-};
-
-type TaskChanges = Partial<
-    Pick<
-        Task,
-        "title" | "estimatedSessions" | "completedAt" | "completedSessions"
-    >
->;
+import type { CreateTaskInput, Task, TaskChanges } from "./types";
 
 type State = {
     tasks: Array<Task>;
 };
 
 type Action = {
-    addTask: (initialData: Pick<Task, "title" | "estimatedSessions">) => void;
+    addTask: (initialData: CreateTaskInput) => void;
     updateTask: (id: Task["id"], changes: TaskChanges) => void;
     removeTask: (id: Task["id"]) => void;
 };
