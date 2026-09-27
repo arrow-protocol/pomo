@@ -2,7 +2,8 @@ import { type SubmitHandler, useForm, useWatch } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ActionIcon, Group, Kbd, Text, TextInput } from "@mantine/core";
-import { MinusIcon, PlusIcon } from "@phosphor-icons/react";
+import { ArrowRightIcon, MinusIcon, PlusIcon } from "@phosphor-icons/react";
+import type { MouseEventHandler } from "react";
 import * as z from "zod";
 
 import { type CreateTaskInput, useTasksStore } from "~/entities/task";
@@ -38,6 +39,12 @@ export function TaskEntry() {
 
     const estimatedSessions = useWatch({ control, name: "estimatedSessions" });
 
+    const handleCounterMouseDown: MouseEventHandler<HTMLButtonElement> = (
+        event,
+    ) => {
+        event.preventDefault();
+    };
+
     const handleDecrease = () => {
         if (estimatedSessions === null) {
             return;
@@ -68,6 +75,7 @@ export function TaskEntry() {
             <Group align="flex-start" gap="sm">
                 <TextInput
                     flex={1}
+                    miw={0}
                     variant="filled"
                     size="md"
                     placeholder="Add a task..."
@@ -77,12 +85,13 @@ export function TaskEntry() {
                     {...register("title")}
                     error={errors.title?.message}
                 />
-
                 <Group gap="lg" bg="gray.1" bdrs="md" h={42} px="xs">
                     <ActionIcon
+                        type="button"
                         variant="transparent"
                         size="lg"
                         aria-label="Decrease planned sessions"
+                        onMouseDown={handleCounterMouseDown}
                         onClick={handleDecrease}
                     >
                         <MinusIcon size={16} />
@@ -91,14 +100,25 @@ export function TaskEntry() {
                         {estimatedSessions ?? "-"}
                     </Text>
                     <ActionIcon
+                        type="button"
                         variant="transparent"
                         size="lg"
                         aria-label="Increase planned sessions"
+                        onMouseDown={handleCounterMouseDown}
                         onClick={handleIncrease}
                     >
                         <PlusIcon size={16} />
                     </ActionIcon>
                 </Group>
+
+                <ActionIcon
+                    type="submit"
+                    variant="light"
+                    size={42}
+                    aria-label="Add task"
+                >
+                    <ArrowRightIcon size={20} />
+                </ActionIcon>
             </Group>
         </form>
     );
