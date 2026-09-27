@@ -1,12 +1,30 @@
-import { ActionIcon, Box, Checkbox, Group, Text } from "@mantine/core";
-import { DotsSixVerticalIcon, DotsThreeIcon } from "@phosphor-icons/react";
+import { ActionIcon, Checkbox, Group, Menu, Text } from "@mantine/core";
+import {
+    DotsSixVerticalIcon,
+    DotsThreeIcon,
+    PencilSimpleIcon,
+    TrashIcon,
+} from "@phosphor-icons/react";
 
-type TaskItemProps = {
-    title: string;
-    completed?: boolean;
-};
+import type { Task } from "../model/types";
+import { useTasksStore } from "../model/useTasksStore";
+import { TaskProgress } from "./TaskProgress";
 
-export function TaskItem({ title, completed }: TaskItemProps) {
+export function TaskItem({
+    id,
+    title,
+    completedAt,
+    completedSessions,
+    estimatedSessions,
+}: Task) {
+    const removeTask = useTasksStore((state) => state.removeTask);
+
+    const completed = Boolean(completedAt);
+
+    const handleDelete = () => {
+        removeTask(id);
+    };
+
     return (
         <Group p="xs" justify="space-between">
             <Group gap="xs">
@@ -30,31 +48,37 @@ export function TaskItem({ title, completed }: TaskItemProps) {
                 </Text>
             </Group>
             <Group gap="md">
+                <TaskProgress
+                    completedAt={completedAt}
+                    completedSessions={completedSessions}
+                    estimatedSessions={estimatedSessions}
+                />
                 {!completed && (
-                    <Group gap={4}>
-                        <Box w={10} h={10} bg="red.8" bdrs="xl" />
-                        <Box w={10} h={10} bd="1px solid gray.7" bdrs="xl" />
-                    </Group>
-                )}
-                <Group gap="xs">
-                    <Text size="xs" ff="var(--mantine-font-family-monospace)">
-                        1
-                    </Text>
-                    <Text size="xs" ff="var(--mantine-font-family-monospace)">
-                        /
-                    </Text>
-                    <Text size="xs" ff="var(--mantine-font-family-monospace)">
-                        2
-                    </Text>
-                </Group>
-                {!completed && (
-                    <ActionIcon
-                        variant="transparent"
-                        size="lg"
-                        aria-label={`More options for ${title}`}
-                    >
-                        <DotsThreeIcon size={16} />
-                    </ActionIcon>
+                    <Menu position="bottom-end" withinPortal>
+                        <Menu.Target>
+                            <ActionIcon
+                                variant="transparent"
+                                aria-label="Task actions"
+                            >
+                                <DotsThreeIcon size={16} />
+                            </ActionIcon>
+                        </Menu.Target>
+
+                        <Menu.Dropdown>
+                            <Menu.Item
+                                leftSection={<PencilSimpleIcon size={16} />}
+                            >
+                                Edit
+                            </Menu.Item>
+
+                            <Menu.Item
+                                leftSection={<TrashIcon size={16} />}
+                                onClick={handleDelete}
+                            >
+                                Delete
+                            </Menu.Item>
+                        </Menu.Dropdown>
+                    </Menu>
                 )}
             </Group>
         </Group>
