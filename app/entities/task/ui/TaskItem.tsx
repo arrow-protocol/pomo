@@ -5,6 +5,7 @@ import {
     PencilSimpleIcon,
     TrashIcon,
 } from "@phosphor-icons/react";
+import type { ChangeEventHandler } from "react";
 
 import type { Task } from "../model/types";
 import { useTasksStore } from "../model/useTasksStore";
@@ -17,9 +18,18 @@ export function TaskItem({
     completedSessions,
     estimatedSessions,
 }: Task) {
+    const updateTask = useTasksStore((state) => state.updateTask);
     const removeTask = useTasksStore((state) => state.removeTask);
 
     const completed = Boolean(completedAt);
+
+    const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+        if (e.currentTarget.checked) {
+            updateTask(id, { completedAt: new Date().toISOString() });
+        } else {
+            updateTask(id, { completedAt: null });
+        }
+    };
 
     const handleDelete = () => {
         removeTask(id);
@@ -37,9 +47,13 @@ export function TaskItem({
                         <DotsSixVerticalIcon size={16} />
                     </ActionIcon>
                 )}
-                <Checkbox aria-label={`Mark ${title} as complete`} />
+                <Checkbox
+                    checked={completed}
+                    onChange={handleChange}
+                    aria-label={`Mark ${title} as complete`}
+                />
                 <Text
-                    td={completed ? "line-through" : ""}
+                    td={completed ? "line-through" : undefined}
                     c={completed ? "dimmed" : undefined}
                     size="md"
                     fw={500}

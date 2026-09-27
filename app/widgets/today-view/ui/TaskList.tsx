@@ -1,12 +1,16 @@
-import { Fragment } from "react/jsx-runtime";
+import { Fragment } from "react";
 
 import { Divider, Stack, Text } from "@mantine/core";
+import { useShallow } from "zustand/shallow";
 
-import { TaskItem } from "~/entities/task";
-import { useTasksStore } from "~/entities/task/model/useTasksStore";
+import { TaskItem, useTasksStore } from "~/entities/task";
 
 export function TaskList() {
-    const tasks = useTasksStore((state) => state.tasks);
+    const tasks = useTasksStore(
+        useShallow((state) =>
+            state.tasks.filter((t) => t.completedAt === null),
+        ),
+    );
 
     if (tasks.length === 0) {
         return (
