@@ -1,16 +1,20 @@
+import { type ReactNode, useState } from "react";
+
 import {
-    Autocomplete,
     Button,
     Chip,
     Group,
     Kbd,
     Modal,
+    Select,
     Stack,
     Text,
     Textarea,
     Title,
 } from "@mantine/core";
-import type { ReactNode } from "react";
+import { useShallow } from "zustand/shallow";
+
+import { useTasksStore } from "~/entities/task";
 
 type PlanSessionModalProps = {
     opened: boolean;
@@ -19,6 +23,19 @@ type PlanSessionModalProps = {
 };
 
 export function PlanSessionModal({ opened, onClose }: PlanSessionModalProps) {
+    const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
+
+    const tasks = useTasksStore(
+        useShallow((state) =>
+            state.tasks.filter((t) => t.completedAt === null),
+        ),
+    );
+
+    const taskOptions = tasks.map(({ id, title }) => ({
+        value: id,
+        label: title,
+    }));
+
     const handleClose = () => {
         onClose();
     };
@@ -33,15 +50,19 @@ export function PlanSessionModal({ opened, onClose }: PlanSessionModalProps) {
             padding="lg"
         >
             <Stack gap="xl">
-                <Autocomplete
+                <Select
+                    size="md"
                     labelProps={{
                         fz: 14,
                         fw: 500,
                     }}
                     label="Task"
-                    size="md"
-                    placeholder="Pick value or enter anything"
-                    data={["React", "Angular", "Vue", "Svelte"]}
+                    placeholder="Pick value"
+                    rightSection={null}
+                    data={taskOptions}
+                    searchable
+                    value={selectedTaskId}
+                    onChange={setSelectedTaskId}
                 />
                 <Stack gap="xs">
                     <Textarea
