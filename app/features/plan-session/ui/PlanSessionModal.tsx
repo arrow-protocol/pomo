@@ -130,7 +130,6 @@ export function PlanSessionModal({ opened, onClose }: PlanSessionModalProps) {
                             placeholder="e.g. write tests for the reducer"
                             minRows={2}
                             maxLength={SESSION_GOAL_MAX_LENGTH}
-                            description={`Optional · ${SESSION_GOAL_MAX_LENGTH} characters max`}
                             {...register("sessionGoal")}
                             error={errors.sessionGoal?.message}
                         />
