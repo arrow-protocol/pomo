@@ -2,46 +2,60 @@ import { create } from "zustand";
 
 type Session =
     | { status: "idle" }
-    | { status: "running"; taskId: string; endsAt: number }
-    | { status: "paused"; taskId: string; remainingMs: number }
-    | { status: "finished"; taskId: string };
+    | {
+          status: "running";
+          taskId: string;
+          sessionGoal?: string;
+          endsAt: number;
+      }
+    | {
+          status: "paused";
+          taskId: string;
+          sessionGoal?: string;
+          remainingMs: number;
+      }
+    | { status: "finished"; sessionGoal?: string; taskId: string };
 
 type State = {
     session: Session;
 };
 
 type Action = {
-    start: (options: { taskId: string; durationMs: number }) => void;
+    start: (options: {
+        taskId: string;
+        sessionGoal?: string;
+        durationMs: number;
+    }) => boolean;
     pause: () => void;
     resume: () => void;
     finish: () => void;
     reset: () => void;
 };
 
-export const useSessionStore = create<State & Action>()((set) => ({
+export const useSessionStore = create<State & Action>()((set, get) => ({
     session: { status: "idle" },
-    start: ({ taskId, durationMs }) =>
-        set((state) => {
-            const { session } = state;
+    start: ({ taskId, sessionGoal, durationMs }) => {
+        const { session } = get();
 
-            if (session.status !== "idle") {
-                return state;
-            }
+        if (session.status !== "idle") {
+            return false;
+        }
 
-            if (!Number.isFinite(durationMs) || durationMs <= 0) {
-                return state;
-            }
+        if (!Number.isFinite(durationMs) || durationMs <= 0) {
+            return false;
+        }
 
-            const endsAt = Date.now() + durationMs;
+        set({
+            session: {
+                status: "running",
+                sessionGoal,
+                taskId,
+                endsAt: Date.now() + durationMs,
+            },
+        });
 
-            return {
-                session: {
-                    status: "running",
-                    taskId,
-                    endsAt,
-                },
-            };
-        }),
+        return true;
+    },
     pause: () =>
         set((state) => {
             const { session } = state;
@@ -50,7 +64,7 @@ export const useSessionStore = create<State & Action>()((set) => ({
                 return state;
             }
 
-            const { taskId, endsAt } = session;
+            const { taskId, sessionGoal, endsAt } = session;
 
             const now = Date.now();
 
@@ -61,6 +75,7 @@ export const useSessionStore = create<State & Action>()((set) => ({
                     session: {
                         status: "finished",
                         taskId,
+                        sessionGoal,
                     },
                 };
             }
@@ -68,6 +83,7 @@ export const useSessionStore = create<State & Action>()((set) => ({
             return {
                 session: {
                     status: "paused",
+                    sessionGoal,
                     taskId,
                     remainingMs,
                 },
@@ -81,13 +97,14 @@ export const useSessionStore = create<State & Action>()((set) => ({
                 return state;
             }
 
-            const { taskId, remainingMs } = session;
+            const { taskId, sessionGoal, remainingMs } = session;
 
             const endsAt = Date.now() + remainingMs;
 
             return {
                 session: {
                     status: "running",
+                    sessionGoal,
                     taskId,
                     endsAt,
                 },
@@ -101,12 +118,13 @@ export const useSessionStore = create<State & Action>()((set) => ({
                 return state;
             }
 
-            const { taskId } = session;
+            const { taskId, sessionGoal } = session;
 
             return {
                 session: {
                     status: "finished",
                     taskId,
+                    sessionGoal,
                 },
             };
         }),
