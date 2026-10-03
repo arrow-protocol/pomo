@@ -7,5 +7,5 @@ import {
 
 export default [
     layout("pages/layout.tsx", [index("pages/home.tsx")]),
-    route("/timer", "pages/timer.tsx"),
+    route("/session", "pages/session.tsx"),
 ] satisfies RouteConfig;

@@ -87,7 +87,7 @@ export function PlanSessionModal({ opened, onClose }: PlanSessionModalProps) {
 
         handleClose();
         reset();
-        navigate("/timer");
+        navigate("/session");
     };
 
     return (
