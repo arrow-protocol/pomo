@@ -4,7 +4,6 @@ import { useNavigate } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
     Button,
-    Chip,
     Group,
     Kbd,
     Modal,
@@ -78,7 +77,8 @@ export function PlanSessionModal({ opened, onClose }: PlanSessionModalProps) {
         const started = start({
             taskId: selectedTaskId,
             sessionGoal,
-            durationMs: 1000 * 60 * 25,
+            // durationMs: 1000 * 60 * 25,
+            durationMs: 1000 * 6,
         });
 
         if (!started) {
@@ -117,6 +117,7 @@ export function PlanSessionModal({ opened, onClose }: PlanSessionModalProps) {
                                 data={taskOptions}
                                 rightSection={null}
                                 searchable
+                                data-autofocus
                                 error={fieldState.error?.message}
                             />
                         )}
@@ -133,14 +134,6 @@ export function PlanSessionModal({ opened, onClose }: PlanSessionModalProps) {
                             {...register("sessionGoal")}
                             error={errors.sessionGoal?.message}
                         />
-                        <Group gap="xs">
-                            <Text c="dimmed" size="sm">
-                                Next step:
-                            </Text>
-                            <Chip variant="light">
-                                Cover pause → resume transitions
-                            </Chip>
-                        </Group>
                     </Stack>
                     <Group justify="space-between">
                         <Text
